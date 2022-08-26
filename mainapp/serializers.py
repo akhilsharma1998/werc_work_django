@@ -38,3 +38,15 @@ class JobTypeSerializer(serializers.ModelSerializer):
             'id',
             'name'
         )
+
+class JobSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.email')
+    class Meta:
+        model = job
+        fields = (
+            'id',
+            'author',
+            'typejob',
+            'description',
+            'date'
+        )

@@ -20,3 +20,9 @@ class Usercertificate(models.Model):
 
 class JobType(models.Model):
     name = models.CharField(max_length=256)
+
+class job(models.Model):
+    author = models.ForeignKey('enroll.User', related_name = 'currentuser', on_delete=models.CASCADE, default='')
+    typejob = models.ForeignKey(JobType, related_name = 'jobtype', on_delete=models.CASCADE)
+    description = models.TextField()
+    date = models.DateField(auto_now=True)

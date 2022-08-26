@@ -8,4 +8,5 @@ urlpatterns = [
     path('UsercertificateUpload/', UsercertificateUpload.as_view(), name='UsercertificateUpload'),
     path('UsercertificateDetail/<int:pk>/', UsercertificateDetail.as_view(), name='UsercertificateDetail'),
     path('JobTypeList/', JobTypeList.as_view(), name='JobTypeList'),
+    path('JobListCreate/', JobListCreate.as_view(), name='JobListCreate'),
 ]

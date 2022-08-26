@@ -62,6 +62,24 @@ class JobTypeList(ListAPIView):
     queryset = JobType.objects.all()
     serializer_class = JobTypeSerializer
 
+# with the help of this api we can create and get  job.
+
+class JobListCreate(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = job.objects.all()
+    serializer_class = JobSerializer
+
+    def get_queryset(self):
+        queryset = Usercertificate.objects.filter(author=self.request.user)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+
+
 
 
 
