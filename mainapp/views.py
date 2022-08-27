@@ -72,11 +72,13 @@ class JobListCreate(ListCreateAPIView):
     serializer_class = JobSerializer
 
     def get_queryset(self):
-        queryset = Usercertificate.objects.filter(author=self.request.user)
+        queryset = job.objects.filter(author=self.request.user)
         return queryset
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    # sbse pehle single job get delete ki api bnani hai
 
 
 

@@ -50,3 +50,17 @@ class JobSerializer(serializers.ModelSerializer):
             'description',
             'date'
         )
+
+class JobassignmentSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.email')
+    class Meta:
+        model = job_assignment
+        fields = (
+            'id',
+            'author',
+            'assigned_to',
+            'job_id',
+            'assign_time',
+            'assignment_status'
+        )
+
