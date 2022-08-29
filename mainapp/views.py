@@ -80,6 +80,20 @@ class JobListCreate(ListCreateAPIView):
 
     # sbse pehle single job get delete ki api bnani hai
 
+class JobListCreate(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = job.objects.all()
+    serializer_class = JobSerializer
+
+    def get_queryset(self):
+        queryset = job.objects.filter(author=self.request.user)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 
 
