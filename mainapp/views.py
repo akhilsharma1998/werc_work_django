@@ -4,6 +4,7 @@ from mainapp.serializers import *
 from rest_framework.generics import *
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from mainapp.permissions import IsOwner
 
 # With the help of this API we can get full list of certificates level.
 
@@ -78,22 +79,12 @@ class JobListCreate(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    # sbse pehle single job get delete ki api bnani hai
-
-class JobListCreate(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwner]
     authentication_classes = [JWTAuthentication]
 
     queryset = job.objects.all()
     serializer_class = JobSerializer
-
-    def get_queryset(self):
-        queryset = job.objects.filter(author=self.request.user)
-        return queryset
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
 
 
 
