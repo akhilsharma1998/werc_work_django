@@ -79,19 +79,13 @@ class JobListCreate(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-# class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
-#     permission_classes = [IsOwner]
-#     authentication_classes = [JWTAuthentication]
-
-#     queryset = job.objects.all()
-#     serializer_class = JobSerializer
-
 class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
     authentication_classes = [JWTAuthentication]
 
     queryset = job.objects.all()
     serializer_class = JobSerializer
+
 
 
 
