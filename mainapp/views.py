@@ -5,6 +5,7 @@ from rest_framework.generics import *
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from mainapp.permissions import IsOwner
+from mainapp.permissions import IsOwner
 
 # With the help of this API we can get full list of certificates level.
 
@@ -85,6 +86,10 @@ class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
 
     queryset = job.objects.all()
     serializer_class = JobSerializer
+
+# with the help of this api we can easily assign the job our employees
+
+
 
 
 
