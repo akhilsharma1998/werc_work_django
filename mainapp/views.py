@@ -89,6 +89,7 @@ class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
 
 # with the help of this api we can easily assign the job our employees
 
+class JobAssign(CreateAPIView):
 
 
 
