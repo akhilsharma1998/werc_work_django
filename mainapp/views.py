@@ -93,6 +93,8 @@ class JobAssign(CreateAPIView):
     permission_classes = [Is_Owner]
     authentication_classes = [JWTAuthentication]
 
+    def akhil()
+
 
 
 
