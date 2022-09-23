@@ -87,15 +87,6 @@ class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
     queryset = job.objects.all()
     serializer_class = JobSerializer
 
-# with the help of this api we can easily assign the job our employees
-
-class JobAssign(CreateAPIView):
-    permission_classes = [Is_Owner]
-    authentication_classes = [JWTAuthentication]
-
-    def akhil()
-
-
 
 
 
