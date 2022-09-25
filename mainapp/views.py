@@ -91,6 +91,8 @@ class Jobassignment(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
+    queryset = job_assignment.objects.all()
+
 
 
 
