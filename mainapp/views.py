@@ -92,6 +92,7 @@ class Jobassignment(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = job_assignment.objects.all()
+    serializer_class = 
 
 
 
