@@ -94,6 +94,8 @@ class Jobassignment(ListCreateAPIView):
     queryset = job_assignment.objects.all()
     serializer_class = JobassignmentSerializer
 
+    def get_queryset
+
 
 
 
