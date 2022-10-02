@@ -87,15 +87,12 @@ class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
     queryset = job.objects.all()
     serializer_class = JobSerializer
 
-class Jobassignment(ListCreateAPIView):
+class JobTypeList(ListAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    queryset = job_assignment.objects.all()
-    serializer_class = JobassignmentSerializer
-
-    def get_queryset(self):
-        queryset
+    queryset = JobType.objects.all()
+    serializer_class = JobTypeSerializer
 
 
 
