@@ -80,20 +80,32 @@ class JobListCreate(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-class SingleJobListCreate(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwner]
+class JobAssignmentEmployer(APIView):
+    serializer_class = JobAssignmentSerializer
+    permission_classes = (IsAuthenticated, IsOwner)
     authentication_classes = [JWTAuthentication]
 
-    queryset = job.objects.all()
-    serializer_class = JobSerializer
 
-class JobTypeList(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    def post(self, request, pk):
+        data = request.data
+        print(pk)
+        print(data)
+        job_assignment_obj=jobassignment.objects.filter(job_id=pk,assigned_to=data['assigned_to'],owner=self.request.user)
+        if job_assignment_obj.exists():
+            job_assignment_obj=jobassignment.objects.get(job_id=pk,assigned_to=data['assigned_to'],owner=self.request.user)
+            job_assignment_obj.assignment_status="assigned"
+            job_assignment_obj.save()
+            return Response("Assigned successfully",status=status.HTTP_200_OK)
+        data["job_id"] = pk
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(owner=request.user)
+        return Response(serializer.data, status.HTTP_200_OK)
 
-    queryset = JobType.objects.all()
-    serializer_class = JobTypeSerializer
-
+    def get(self, request, pk, format=None):
+        assignments = jobassignment.objects.filter(job_id=pk).exclude(assignment_status="unassigned")
+        serializer = self.serializer_class(assignments, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
 
 
 
