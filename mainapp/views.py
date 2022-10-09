@@ -107,6 +107,23 @@ class JobAssignmentEmployer(APIView):
         serializer = self.serializer_class(assignments, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
+class JobAssignmentUnassignEmployee(APIView):
+    serializer_class = JobAssignmentSerializer
+    permission_classes = (IsAuthenticated, IsOwner)
+    authentication_classes = [JWTAuthentication]
+    def put(self, request, job_id, assignment_id, format=None):
+        try:
+            assignment = jobassignment.objects.get(id=assignment_id)
+            serializer = self.serializer_class(assignment, data={'assignment_status': request.data.get('assignment_status')}, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                serialized_data = serializer.data
+                return Response(serialized_data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except jobassignment.DoesNotExist:
+            return Response({'error': "assignment does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 
