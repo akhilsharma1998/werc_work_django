@@ -123,17 +123,6 @@ class JobAssignmentUnassignEmployee(APIView):
         except jobassignment.DoesNotExist:
             return Response({'error': "assignment does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
-class JobAssignmentListEmployee(generics.ListAPIView):
-    
-    authentication_classes = [JWTAuthentication]
-    permission_classes = (IsAuthenticated, IsOwner,)
-    
-
-    def get(self, request, format=None):
-        assignments = jobassignment.objects.filter(assigned_to=request.user.id).exclude(assignment_status="unassigned")
-        serializer = JobAssignmentSerializer(assignments, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 
 
