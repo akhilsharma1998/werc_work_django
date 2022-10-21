@@ -140,13 +140,7 @@ class NotesEmployee(APIView):
         }
         return Response(response)
 
-class JobNotesViewSet(generics.ListCreateAPIView):
-    """
-    return all notes related to provided job
-    """
-    serializer_class = NotesSerializer
-    def get_queryset(self):
-        return notes.objects.filter(Q(job_assignment_id__job_id=self.kwargs.get('pk')) | Q(job=self.kwargs.get('pk')))
+
 
 
 
