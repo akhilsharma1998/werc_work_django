@@ -140,7 +140,26 @@ class NotesEmployee(APIView):
         }
         return Response(response)
 
+class NotesEmployerView(generics.CreateAPIView):
+    """
+    employer can add a note to job
+    """
+    serializer_class = NotesSerializer
+    permission_classes = (IsAuthenticated, IsEmployer)
+    authentication_classes = [JWTAuthentication]
+    queryset = notes.objects.none()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class JobNotesViewSet(generics.ListCreateAPIView):
+    """
+    return all notes related to provided job
+    """
+    serializer_class = NotesSerializer
+    def get_queryset(self):
+        return notes.objects.filter(Q(job_assignment_id__job_id=self.kwargs.get('pk')) | Q(job=self.kwargs.get('pk')))
 
 
 
