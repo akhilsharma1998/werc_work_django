@@ -9,5 +9,7 @@ urlpatterns = [
     path('UsercertificateDetail/<int:pk>/', UsercertificateDetail.as_view(), name='UsercertificateDetail'),
     path('JobTypeList/', JobTypeList.as_view(), name='JobTypeList'),
     path('JobListCreate/', JobListCreate.as_view(), name='JobListCreate'),
-    path('SingleJobListCreate/<int:pk>/', SingleJobListCreate.as_view(), name='SingleJobListCreate'),
+    path('SingleJob/<int:pk>/', SingleJob.as_view(), name='SingleJob'),
+    path('updateSingleJob/<int:pk>/', SingleJob.as_view(), name='updateSingleJob'),
+    path('deleteSingleJob/<int:pk>/', SingleJob.as_view(), name='updateSingleJob'),
 ]
