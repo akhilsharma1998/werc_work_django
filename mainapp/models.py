@@ -40,4 +40,7 @@ class job_assignment(models.Model):
     assign_time = models.DateField(auto_now=True)
     assignment_status = models.CharField(max_length=250, choices=Status, default='assigned')
 
+# This model for notes
+class notes(models.Model):
+
 
