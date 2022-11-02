@@ -42,5 +42,6 @@ class job_assignment(models.Model):
 
 # This model for notes
 class notes(models.Model):
+    Description = models.CharField(max_length=100)
 
 
