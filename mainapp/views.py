@@ -115,6 +115,11 @@ class JobAssignmentEmployer(APIView):
         serializer.save(owner=request.user)
         return Response(serializer.data, status.HTTP_200_OK)
 
+    def get(self, request, pk, format=None):
+        assignments = jobassignment.objects.filter(job_id=pk).exclude(assignment_status="unassigned")
+        serializer = self.serializer_class(assignments, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
+
 
 
 
