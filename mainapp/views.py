@@ -136,6 +136,11 @@ class JobAssignmentUnassignEmployee(APIView):
         except jobassignment.DoesNotExist:
             return Response({'error': "assignment does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
+class JobAssignmentListEmployee(generics.ListAPIView):
+    
+    authentication_classes = [JWTAuthentication]
+    permission_classes = (IsAuthenticated, IsOwner,)
+
 
 
 
