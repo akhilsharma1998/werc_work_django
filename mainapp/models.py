@@ -40,4 +40,8 @@ class job_assignment(models.Model):
     assign_time = models.DateField(auto_now=True)
     assignment_status = models.CharField(max_length=250, choices=Status, default='assigned')
 
+class notes(models.Model):
+    job_assignment_id = models.ForeignKey(jobassignment, on_delete=models.CASCADE, blank=True, null=True)
+    description = models.TextField(max_length=500)
+
 
