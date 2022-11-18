@@ -43,5 +43,8 @@ class job_assignment(models.Model):
 class notes(models.Model):
     job_assignment_id = models.ForeignKey(jobassignment, on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    user = models.ForeignKey('account.User', on_delete=models.CASCADE, null=True, blank=True)
+    job = models.ForeignKey(jobs, on_delete=models.CASCADE, blank=True, null=True)
 
 
