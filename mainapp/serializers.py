@@ -64,3 +64,14 @@ class JobassignmentSerializer(serializers.ModelSerializer):
             'assignment_status'
         )
 
+class NotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = notes
+        fields = (
+            'id',
+            'job_assignment_id',
+            'description',
+            'created_at',
+            'user',
+            'job'
+        )
