@@ -69,7 +69,6 @@ class NotesSerializer(serializers.ModelSerializer):
         model = notes
         fields = (
             'id',
-            'job_assignment_id',
             'description',
             'created_at',
             'user',

@@ -154,6 +154,23 @@ class JobAssignmentEmployee(generics.RetrieveUpdateAPIView):
     def get_queryset(self):
         return jobassignment.objects.filter(assigned_to=self.request.user).exclude(assignment_status="unassigned")
 
+class NotesEmployee(APIView):
+    serializer_class = NotesSerializer
+    permission_classes = (IsAuthenticated, IsOwner)
+    authentication_classes = [JWTAuthentication]
+
+    def post (self, request, pk):
+        try:
+            assignment = jobassignment.objects.exclude(assignment_status="unassigned").get(assigned_to=request.user, id=pk)
+        except:
+            return Response({"error": "This job is not available"}, status=status.HTTP_400_BAD_REQUEST)
+        data = request.data
+        data["job_assignment_id"] = pk
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(serializer.data, status.HTTP_200_OK)
+
 
 
 
