@@ -171,6 +171,22 @@ class NotesEmployee(APIView):
         serializer.save(user=request.user)
         return Response(serializer.data, status.HTTP_200_OK)
 
+    def get(self,request, pk):
+        try:
+            assignment = jobassignment.objects.exclude(assignment_status="unassigned").get(assigned_to=request.user, id=pk)
+        except:
+            return Response({"error": "note is not available"}, status=status.HTTP_400_BAD_REQUEST)
+        allnotes = notes.objects.filter(job_assignment_id=pk)
+        count=len(allnotes)
+        serializer = NotesSerializer(allnotes, many=True)
+        response = {
+            'success': True,
+            'statusCode': status.HTTP_200_OK,
+            'notes': serializer.data,
+            'length_notes': count,
+        }
+        return Response(response)
+
 
 
 
