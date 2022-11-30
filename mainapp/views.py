@@ -187,6 +187,15 @@ class NotesEmployee(APIView):
         }
         return Response(response)
 
+class NotesEmployerView(generics.CreateAPIView):
+    """
+    employer can add a note to job
+    """
+    serializer_class = NotesSerializer
+    permission_classes = (IsAuthenticated, IsEmployer)
+    authentication_classes = [JWTAuthentication]
+    queryset = notes.objects.none()
+
 
 
 
