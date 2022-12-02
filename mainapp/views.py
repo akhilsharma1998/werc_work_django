@@ -196,6 +196,9 @@ class NotesEmployerView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = notes.objects.none()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 
 
