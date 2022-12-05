@@ -47,4 +47,15 @@ class notes(models.Model):
     user = models.ForeignKey('account.User', on_delete=models.CASCADE, null=True, blank=True)
     job = models.ForeignKey(jobs, on_delete=models.CASCADE, blank=True, null=True)
 
+class workinghourr(models.Model):
+    Status = (
+        ('in_progress', 'in_progress'),
+        ('pause', 'pause'),
+        ('ended', 'ended'),
+    )
+    job_assignment_id = models.ForeignKey(jobassignment, related_name='jbassign', on_delete=models.CASCADE)
+    logging_hour_start = models.DateTimeField(null=True, blank=True)
+    logging_hour_end = models.DateTimeField(null=True, blank=True)
+    log_status = models.CharField(max_length=250, choices=Status, default='in_progress')
+
 
