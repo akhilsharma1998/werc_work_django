@@ -58,4 +58,8 @@ class workinghourr(models.Model):
     logging_hour_end = models.DateTimeField(null=True, blank=True)
     log_status = models.CharField(max_length=250, choices=Status, default='in_progress')
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=1024)
+    answer = models.TextField()
+    active = models.BooleanField(default=True, help_text='Whether to show this question or not')
 
