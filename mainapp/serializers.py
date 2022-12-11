@@ -69,8 +69,23 @@ class NotesSerializer(serializers.ModelSerializer):
         model = notes
         fields = (
             'id',
+            'job_assignment_id',
             'description',
             'created_at',
             'user',
             'job'
         )
+
+class WorkingHoursSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    class Meta:
+        model = workinghourr
+        fields = (
+            'id',
+            'author',
+            'job_assignment_id',
+            'logging_hour_start',
+            'logging_hour_end',
+            'log_status',
+        )
+

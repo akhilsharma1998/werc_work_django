@@ -53,6 +53,7 @@ class workinghourr(models.Model):
         ('pause', 'pause'),
         ('ended', 'ended'),
     )
+    author = models.ForeignKey('enroll.User', related_name = 'userr', on_delete=models.CASCADE)
     job_assignment_id = models.ForeignKey(jobassignment, related_name='jbassign', on_delete=models.CASCADE)
     logging_hour_start = models.DateTimeField(null=True, blank=True)
     logging_hour_end = models.DateTimeField(null=True, blank=True)
