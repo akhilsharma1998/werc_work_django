@@ -252,6 +252,20 @@ class WorkingHourEmployee(APIView):
         else:
             return Response({"message":"Job stopped"}, status=status.HTTP_200_OK)
 
+    def get(self, request, pk):
+        try:
+            assignment = jobassignment.objects.get(assigned_to=request.user, id=pk)
+        except:
+            return Response({"message":"Not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+        working_hours = workinghourr.objects.filter(job_assignment_id=pk)
+        # now = datetime.now()
+        # datetime_object = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.%f")
+        # time = datetime_object.time
+        # data = working_hours.filter(logging_hour_end=time, logging_hour_start=time)
+        serializer = self.serializer_class(working_hours, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
+
 
 
 
