@@ -266,6 +266,10 @@ class WorkingHourEmployee(APIView):
         serializer = self.serializer_class(working_hours, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
+class WorkingHoursStatus(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [JWTAuthentication]
+
 
 
 
