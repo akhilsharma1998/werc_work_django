@@ -278,7 +278,6 @@ class WorkingHoursStatus(viewsets.ViewSet):
         if working_hours.exists():
             started_at = working_hours[0].logging_hour_start
         total_working_hours = working_hours.aggregate(total_hours=Sum(F('logging_hour_end') - F('logging_hour_start')))['total_hours']
-        current_working = workinghourr.objects.filter(owner=request.user, logging_hour_end=None).first()
 
 
 
