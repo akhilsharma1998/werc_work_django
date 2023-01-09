@@ -279,9 +279,3 @@ class WorkingHoursStatus(viewsets.ViewSet):
             started_at = working_hours[0].logging_hour_start
         total_working_hours = working_hours.aggregate(total_hours=Sum(F('logging_hour_end') - F('logging_hour_start')))['total_hours']
         current_working = workinghourr.objects.filter(owner=request.user, logging_hour_end=None).first()
-        if current_working:
-            current_hours = today_datetime - current_working.logging_hour_start
-            if total_working_hours:
-                total_working_hours = total_working_hours.seconds + current_hours.seconds
-            else:
-                total_working_hours = current_hours.seconds
