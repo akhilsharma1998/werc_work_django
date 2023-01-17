@@ -275,7 +275,3 @@ class WorkingHoursStatus(viewsets.ViewSet):
         today_datetime = timezone.now()
         started_at = None  # start time of first work started today
         working_hours = workinghourr.objects.filter(owner=request.user, logging_hour_start__date=today_datetime.date()).order_by('logging_hour_start')
-        if working_hours.exists():
-            started_at = working_hours[0].logging_hour_start
-        total_working_hours = working_hours.aggregate(total_hours=Sum(F('logging_hour_end') - F('logging_hour_start')))['total_hours']
-        current_working = workinghourr.objects.filter(owner=request.user, logging_hour_end=None).first()
