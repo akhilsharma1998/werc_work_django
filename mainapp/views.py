@@ -265,13 +265,3 @@ class WorkingHourEmployee(APIView):
         # data = working_hours.filter(logging_hour_end=time, logging_hour_start=time)
         serializer = self.serializer_class(working_hours, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
-
-class WorkingHoursStatus(viewsets.ViewSet):
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = [JWTAuthentication]
-
-    @action(detail=False)
-    def today_working_hours(self,request):
-        today_datetime = timezone.now()
-        started_at = None  # start time of first work started today
-        working_hours = workinghourr.objects.filter(owner=request.user, logging_hour_start__date=today_datetime.date()).order_by('logging_hour_start')
