@@ -239,15 +239,3 @@ class WorkingHourEmployee(APIView):
             assignment = jobassignment.objects.get(assigned_to=request.user, id=pk)
         except:
             return Response({"message":"Not found"}, status=status.HTTP_400_BAD_REQUEST)
-
-        starttime = datetime.datetime.utcnow()
-        inprogress_hour = workinghourr.objects.filter(job_assignment_id=pk, log_status="in_progress")
-        if inprogress_hour.exists():
-            inprogress_hour = inprogress_hour.first()
-            # code here for update status of all in progress timer to end and also update endtime
-            serializer = self.serializer_class(inprogress_hour, data={'log_status': request.data['status'], 'logging_hour_end': starttime}, partial=True)
-            serializer.is_valid(raise_exception=True)
-            serializer.save(owner=request.user)
-            return Response(serializer.data, status.HTTP_200_OK)
-        else:
-            return Response({"message":"Job stopped"}, status=status.HTTP_200_OK)
