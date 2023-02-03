@@ -163,3 +163,14 @@ class JobAssignmentListEmployee(generics.ListAPIView):
         assignments = jobassignment.objects.filter(assigned_to=request.user.id).exclude(assignment_status="unassigned")
         serializer = JobAssignmentSerializer(assignments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class SingleJob(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = job.objects.all()
+    serializer_class = JobSerializer
+
+    def get_queryset(self):
+        queryset = job.objects.filter(author=self.request.user)
+        return queryset
